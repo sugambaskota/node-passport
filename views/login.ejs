@@ -45,14 +45,25 @@
             padding: 10px;
             background: #ff5353;
         }
+        .facebook-btn{
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px;
+            background: #4267B2;
+        }
     </style>
 </head>
 <body>
     <nav>
         <ul>
+            <li><a href="/">Home</a></li>
+            <% if(user) { %>
             <li><a href="/auth/logout">Logout</a></li>
+            <% } else { %>
             <li><a href="/auth/login">Login</a></li>
-            <li><a href="/">Homepage</a></li>
+            <% } %>
+            <li><a href="/profile">Profile</a></li>
         </ul>
     </nav>
     <header>
@@ -60,6 +71,7 @@
     </header>
     <main>
         <a class="google-btn" href="/auth/google">Google</a>
+        <a class="facebook-btn" href="/auth/facebook">Facebook</a>
     </main>
 </body>
 </html>
