@@ -23,12 +23,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //connect to mongodb
-mongoose.connect(keys.mongodb.dbURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}, () => {
-    console.log('Connected to cloud database!');
-});
+// mongoose.connect(keys.mongodb.dbURI, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// }, () => {
+//     console.log('Connected to cloud database!');
+// });
+
+//set up public route
+app.use(express.static(__dirname + '/public'));
 
 //set up routes
 app.use('/auth', authRoutes);
@@ -43,7 +46,9 @@ app.get('/', (req, res) =>{
 
 //create 404 route
 app.use('*', (req, res) => {
-    res.render('404');
+    res.render('404', {
+        user: req.user
+    });
 });
 
 //set up server
