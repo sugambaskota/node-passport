@@ -17,7 +17,7 @@ router.get('/logout', (req, res) => {
 });
 
 //auth with google
-router.get('/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 //calback route for google to redirect to
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
@@ -25,7 +25,7 @@ router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
 });
 
 //auth with facebook
-router.get('/facebook', passport.authenticate('facebook'));
+router.get('/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 
 //calback route for facebook to redirect to
 router.get('/facebook/redirect', passport.authenticate('facebook'), (req, res) => {

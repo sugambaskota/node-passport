@@ -33,6 +33,7 @@ passport.use(new GoogleStrategy({
         let newUser = await User({
             socialId: profile.id,
             username: profile.displayName,
+            email: profile.emails[0].value,
             provider: profile.provider,
             picURL: profile.photos[0].value
         }).save();
@@ -45,7 +46,8 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
     clientID: keys.facebook.clientID,
     clientSecret: keys.facebook.clientSecret,
-    callbackURL: '/auth/facebook/redirect'
+    callbackURL: '/auth/facebook/redirect',
+    profileFields: ['id', 'displayName', 'picture.width(200).height(200)', 'first_name', 'middle_name', 'last_name', 'gender', 'email']
 }, async (accessToken, refreshToken, profile, done) => {
     //check if user already exists in our db
     try {
@@ -58,7 +60,9 @@ passport.use(new FacebookStrategy({
         let newUser = await User({
             socialId: profile.id,
             username: profile.displayName,
-            provider: profile.provider
+            email: profile.emails[0].value,
+            provider: profile.provider,
+            picURL: profile.photos[0].value
         }).save();
         done(null, newUser);
     } catch (error) {
