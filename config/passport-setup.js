@@ -33,7 +33,8 @@ passport.use(new GoogleStrategy({
         let newUser = await User({
             socialId: profile.id,
             username: profile.displayName,
-            provider: profile.provider
+            provider: profile.provider,
+            picURL: profile.photos[0].value
         }).save();
         done(null, newUser);
     } catch (error) {
